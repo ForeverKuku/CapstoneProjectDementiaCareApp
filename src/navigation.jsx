@@ -6,10 +6,10 @@ import GetStarted from './onboardingScreens/GetStarted';
 import { SignIn } from './RegistrationScreens/SignIn';
 import { CreateAccount } from './RegistrationScreens/CreateAccount';
 import WelcomeScreen from './onboardingScreens/WelcomeScreen';
-import CaregiverDashboard from './CareGiverScreens/CaregiverDashboard';
-import PatientDashboard from './PatientScreens/PatientDashboard';
-import EmergencyCall from './PatientScreens/EmergencyCall';
-import ProfileScreen from './PatientScreens/ProfileScreen';
+import CaregiverDashboard from './AllCareGiverScreens/CaregiverDashboard';
+import PatientDashboard from './AllPatientScreens/PatientDashboard';
+import EmergencyCall from './AllPatientScreens/EmergencyCall';
+import ProfileScreen from './AllPatientScreens/ProfileScreen';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
