@@ -9,7 +9,6 @@ import WelcomeScreen from './onboardingScreens/WelcomeScreen';
 import CaregiverDashboard from './CareGiverScreens/CaregiverDashboard';
 import PatientDashboard from './PatientScreens/PatientDashboard';
 import EmergencyCall from './PatientScreens/EmergencyCall';
-import ProfileScreen from './PatientScreens/ProfileScreen';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -65,7 +64,7 @@ function TabNavigator() {
   >
     <Tab.Screen name="PatientHomeScreen" component={PatientDashboard}  options={{tabBarShowLabel:false}}/>
     <Tab.Screen name="EmergencyCall" component={EmergencyCall}  options={{tabBarShowLabel:false}} />
-    <Tab.Screen name="ProfileScreen" component={ProfileScreen}  options={{tabBarShowLabel:false}} />  
+    <Tab.Screen name="ProfileScreen" component={PatientProfile}  options={{tabBarShowLabel:false}} />  
   </Tab.Navigator>
   );
 }
