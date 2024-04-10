@@ -2,14 +2,16 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const CaregiverDashboard = ({navigation}) => {
-return (
+const CaregiverDashboard = ({ navigation }) => {
+  return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Good morning, Sarah</Text>
-        <Text style={styles.subHeaderText}>Hope a great day ahead</Text>
-        <Icon name="bell" size={20} color="#fff" />
-        <Icon name="cog" size={20} color="#fff" />
+        <Text style={styles.subHeaderText}>Hope you have a great day ahead</Text>
+        <View style={styles.iconContainer}>
+          <Icon name="bell" size={20} color="#fff" />
+          <Icon name="cog" size={20} color="#fff" />
+        </View>
       </View>
       <TextInput style={styles.searchBar} placeholder="Search" />
       <View style={styles.medicineProgress}>
@@ -40,13 +42,14 @@ return (
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
   header: {
-    backgroundColor: '#d8bfd8s',
+    backgroundColor: '#d8bfd8',
     padding: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -59,6 +62,9 @@ const styles = StyleSheet.create({
   subHeaderText: {
     color: '#fff',
     fontSize: 14,
+  },
+  iconContainer: {
+    flexDirection: 'row',
   },
   searchBar: {
     margin: 10,
@@ -80,7 +86,7 @@ const styles = StyleSheet.create({
   },
   patientName: {
     fontSize: 16,
-    color: '#333',
+    color: '#d8bfd8',
   },
   date: {
     fontSize: 14,
@@ -92,12 +98,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   buttonBlue: {
-    backgroundColor: '#0000ff',
+    backgroundColor: '#d8bfd8',
     padding: 15,
     borderRadius: 20,
   },
   buttonRed: {
-    backgroundColor: '#ff0000',
+    backgroundColor: '#d8bfd8',
     padding: 15,
     borderRadius: 20,
   },
@@ -126,7 +132,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 10,
   },
-  // Add additional styles for icons and labels as needed
 });
 
 export default CaregiverDashboard;
