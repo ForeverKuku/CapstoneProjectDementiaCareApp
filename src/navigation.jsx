@@ -9,6 +9,7 @@ import WelcomeScreen from './onboardingScreens/WelcomeScreen';
 import PatientDashboard from './PatientScreens/PatientDashboard';
 import EmergencyCall from './PatientScreens/EmergencyCall';
 import PatientProfile from './PatientScreens/PatientProfile';
+
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CountryPickerTextInput from './onboardingScreens/phone';
@@ -23,13 +24,13 @@ const Stack = createNativeStackNavigator();
 export const MainNavigation = () => {
   return(
 
-  <Stack.Navigator initialRouteName="CareGiverProfile">
+  <Stack.Navigator initialRouteName="PatientProfile">
     <Stack.Screen name="SplashScreen" component={SplashScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="GetStarted" component={GetStarted}  options={{headerShown: false}}/>
      <Stack.Screen name="SignIn" component={SignIn}  options={{headerShown: false}}/>
      <Stack.Screen name="CreateAccount" component={CreateAccount}  options={{headerShown: false}}/>
      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  options={{headerShown: false}}/>
-     
+     <Stack.Screen name="CaregiverDashboard" component={CaregiverDashboard}  options={{headerShown: false}}/>
      <Stack.Screen name="EmergencyCall" component={TabNavigator}  options={{headerShown: false}}/>   
     <Stack.Screen name="PatientProfile" component={TabNavigator}  options={{headerShown: false}}/> 
     <Tab.Screen name="PatientDashboard" component={TabNavigator}  options={{tabBarShowLabel:false}} /> 

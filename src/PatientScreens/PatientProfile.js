@@ -1,18 +1,20 @@
 import { StyleSheet, Text, View ,Image ,Button, TouchableOpacity} from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { FullWindowOverlay } from 'react-native-screens'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
  import AntDesign from 'react-native-vector-icons/AntDesign';
  import Feather from 'react-native-vector-icons/Feather';
  import Entypo from 'react-native-vector-icons/Entypo';
  import Ionicons from 'react-native-vector-icons/Ionicons';
+ import Fontisto from 'react-native-vector-icons/Fontisto';
+
+ 
  
 export default function PatientProfile() {
+    
   return (
     <View>
-        <View style={{alignItems:'center',paddingHorizontal:20,paddingTop:30}}>
-      <Text style={{fontSize:20,fontWeight:'bold'}}>profile</Text>
-      </View>
+       
       <View style={{alignItems:'center',paddingHorizontal:20,paddingTop:30}}>
       
 <Image source={require('../img/pht.jpg')} style={{width:200,height:210,borderRadius:99}} />  
@@ -31,8 +33,8 @@ export default function PatientProfile() {
       <Text style={{fontSize:18}}>June 16 1960</Text>
     </View>
     <View style={{paddingHorizontal:20,paddingTop:10,display:'flex',flexDirection:'row',alignItems:'baseline',gap:30}}>
-      <Feather name="phone" size={30} color="#000"  style={{paddingStart:70,}}/>
-      <Text style={{fontSize:18}}>0788543223</Text>
+    <Fontisto name="toggle-off" size={30} color="#000" style={{paddingStart:70,}}/>
+    <Text style={{fontSize:18}}>Dark Mode</Text>
     </View>
     
     <View style={styles.container}>
@@ -43,12 +45,7 @@ export default function PatientProfile() {
 
 
 
-    <View style={{paddingTop:170,display:'flex',flexDirection:'row',paddingHorizontal:20,gap:80}}>
-    <Entypo name="home" size={30} color="#000" />
-    <Ionicons name="book-outline" size={30} color="#000"/>
-    <Ionicons name="game-controller-outline" size={30} color="#000"/>
-    <MaterialIcons name="contact-page" size={30} color="#000"/>
-    </View>
+
     </View>
   )
 }
@@ -60,10 +57,10 @@ const styles = StyleSheet.create({
     flex: 1,
     
     alignItems: 'center',
-    paddingTop:30
+    paddingTop:120
   },
   button: {
-    backgroundColor: '#ffccff',
+    backgroundColor: '#d8bfd8',
     padding: 10,
     borderRadius: 5,
     width:180,
