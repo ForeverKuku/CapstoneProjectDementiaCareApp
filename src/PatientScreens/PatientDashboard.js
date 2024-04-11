@@ -15,13 +15,7 @@ const MindGameCard = ({ game, onPress }) => {
 };
 
 const PatientDashboard = ({navigation}) => {
-  const dailyRoutinesData = [
-    { time: '8:00 AM', task: 'Morning walk' },
-    { time: '12:30 PM', task: 'Lunch' },
-    { time: '3:00 PM', task: 'Medication' },
-    { time: '5:00 PM', task: 'Bible Study' },
-  ];
-
+  
   const mindGamesData = [
     { id: '1', name: 'Sudoku', image: require('../img/sudoku.png') },
     { id: '2', name: 'Crossword Puzzle', image: require('../img/puzzle.png') },
@@ -70,9 +64,6 @@ const PatientDashboard = ({navigation}) => {
     navigation.navigate('MedicationManagementScreen');
   };
 
-  const handleDailyRoutinePress = () => {
-    navigation.navigate('DailyRoutineScreen');
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -101,6 +92,7 @@ const PatientDashboard = ({navigation}) => {
             }}
           />
         </View>
+        <Text style={styles.subTitle}>Health & Wellness Hub</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
   {mindGamesData.map(game => (
     <MindGameCard
@@ -109,25 +101,8 @@ const PatientDashboard = ({navigation}) => {
       onPress={() => handleMindGamesPress(game.name)}
     />
   ))}
-</ScrollView>
-      <View>
-      <Text style={styles.sectionTitles}>Health & Wellness Hub</Text>
-      </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {/* Daily Routines section */}
-        <View style={styles.routines}>
-  <Text style={styles.subTitle}>Daily Routines</Text>
-  {dailyRoutinesData.map((routine) => (
-    <Text key={routine.time}>
-      {routine.time}: {routine.task}
-    </Text>
-  ))}
-   <TouchableOpacity onPress={handleDailyRoutinePress}>
-          <Text>Click</Text>
-        </TouchableOpacity>
-</View>
 
-        <View style={styles.medications}>
+<View style={styles.medications}>
         <Text style={styles.subTitle}>Medication Management</Text>
           {medicationsData.map((medication) => (
             <Text key={medication.name}>
@@ -138,9 +113,9 @@ const PatientDashboard = ({navigation}) => {
           <Text>Go to Medications Management</Text>
         </TouchableOpacity>
         </View>
-      </ScrollView>
+</ScrollView>
       <View>
-      <Text style={styles.sectionTitle}>Memories</Text>
+      <Text style={styles.sectionTitle}>Your Memories</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
     {memoriesData.map((memory) => (
       <TouchableOpacity key={memory.id} style={styles.cardContainer} onPress={() => navigate('Memory', { memory })}>
@@ -198,19 +173,20 @@ const PatientDashboard = ({navigation}) => {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-    marginTop:20
+    marginTop:20,
+    color: '#666666',
   },
   sectionTitles:{
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-    marginTop:20
+    marginTop:20,
+    color: '#666666',
   },
   subTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#666666',
-    marginBottom: 8,
   },
 
   cardContainer: {

@@ -14,13 +14,12 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CalendarScreen from './PatientScreens/Calendar';
 import ReminderScreen from './PatientScreens/ReminderScreen';
-import MindGameScreen from './PatientScreens/MindGame';
 import SudokuScreen from './PatientScreens/MindGames/SudokuScreen';
 import CrosswordScreen from './PatientScreens/MindGames/CrosswordScreen';
 import MemoryGameScreen from './PatientScreens/MindGames/MemoryGameScreen';
 import MindGamesScreen from './PatientScreens/MindGame';
 import MedicationManagementScreen from './PatientScreens/MedicationManagemet';
-import DailyRoutineScreen from './PatientScreens/DailyRoutine';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -41,7 +40,6 @@ export const MainNavigation = () => {
      <Stack.Screen name="CrosswordScreen" component={CrosswordScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="MemoryGameScreen" component={MemoryGameScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="MedicationManagementScreen" component={MedicationManagementScreen}  options={{headerShown: false}}/>
-     <Stack.Screen name="DailyRoutineScreen" component={DailyRoutineScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="CaregiverDashboard" component={CaregiverDashboard}  options={{headerShown: false}}/>
      <Stack.Screen name="EmergencyCall" component={TabNavigator}  options={{headerShown: false}}/>   
     <Stack.Screen name="PatientProfile" component={TabNavigator}  options={{headerShown: false}}/> 
