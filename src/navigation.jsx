@@ -10,6 +10,7 @@ import CaregiverDashboard from './CareGiverScreens/CaregiverDashboard';
 import PatientDashboard from './PatientScreens/PatientDashboard';
 import EmergencyCall from './PatientScreens/EmergencyCall';
 import PatientProfile from './PatientScreens/PatientProfile';
+
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
