@@ -6,13 +6,13 @@ import GetStarted from './onboardingScreens/GetStarted';
 import { SignIn } from './RegistrationScreens/SignIn';
 import { CreateAccount } from './RegistrationScreens/CreateAccount';
 import WelcomeScreen from './onboardingScreens/WelcomeScreen';
-import CaregiverDashboard from './CareGiverScreens/CaregiverDashboard';
-import PatientDashboard from './PatientScreens/PatientDashboard';
-import EmergencyCall from './PatientScreens/EmergencyCall';
-import PatientProfile from './PatientScreens/PatientProfile';
-
+import CaregiverDashboard from './AllCareGiverScreens/CaregiverDashboard';
+import PatientDashboard from './AllPatientScreens/PatientDashboard';
+import EmergencyCall from './AllPatientScreens/EmergencyCall';
+import PatientProfile from './AllPatientScreens/PatientProfile';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import EditPatientProfile from './AllPatientScreens/EditPatientProfile';
 
 
 const Stack = createNativeStackNavigator();
@@ -20,7 +20,7 @@ const Stack = createNativeStackNavigator();
 export const MainNavigation = () => {
   return(
 
-  <Stack.Navigator initialRouteName="PatientProfile">
+  <Stack.Navigator initialRouteName="Edit">
     <Stack.Screen name="SplashScreen" component={SplashScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="GetStarted" component={GetStarted}  options={{headerShown: false}}/>
      <Stack.Screen name="SignIn" component={SignIn}  options={{headerShown: false}}/>
@@ -28,7 +28,8 @@ export const MainNavigation = () => {
      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="CaregiverDashboard" component={CaregiverDashboard}  options={{headerShown: false}}/>
      <Stack.Screen name="EmergencyCall" component={TabNavigator}  options={{headerShown: false}}/>   
-    <Stack.Screen name="PatientProfile" component={TabNavigator}  options={{headerShown: false}}/> 
+    <Stack.Screen name="PatientProfile" component={TabNavigator}  options={{headerShown: false}}/>
+    <Stack.Screen name="Edit" component={TabNavigator} options={{headerShown:false}}/> 
     <Tab.Screen name="PatientDashboard" component={TabNavigator}  options={{tabBarShowLabel:false}} /> 
      </Stack.Navigator>
  )
@@ -66,7 +67,8 @@ function TabNavigator() {
   >
     <Tab.Screen name="PatientHomeScreen" component={PatientDashboard}  options={{tabBarShowLabel:false}}/>
     <Tab.Screen name="EmergencyCall" component={EmergencyCall}  options={{tabBarShowLabel:false}} />
-    <Tab.Screen name="PatientProfile" component={PatientProfile}  options={{tabBarShowLabel:false}} /> 
+    <Tab.Screen name="PatientProfile" component={PatientProfile}  options={{tabBarShowLabel:false}} />
+    <Tab.Screen name="Edit" component={EditPatientProfile} options={{tabBarShowLabel:false}}/> 
   </Tab.Navigator>
   );
 }
