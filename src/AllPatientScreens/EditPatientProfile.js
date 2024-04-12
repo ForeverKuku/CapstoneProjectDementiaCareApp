@@ -11,14 +11,19 @@ import { TextInput } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PatientProfile from './PatientProfile';
 
+
 export default function EditPatientProfile({navigation}) {
     
   return (
     <View>
        
       <View style={{alignItems:'center',paddingHorizontal:20,paddingTop:30}}>
-      
+      <View>
 <Image source={require('../img/pht.jpg')} style={{width:200,height:210,borderRadius:99}} />  
+<Feather name='edit' size={30} color="red" style={{backgroundColor:"black",position:'absolute', right:-5, top:130}}/>
+      </View>
+      </View>
+      <View style={{paddingLeft:50}}>
       </View>
     <View style={{paddingLeft:50,paddingTop:20,width:350}}>
         <TextInput
@@ -42,7 +47,7 @@ export default function EditPatientProfile({navigation}) {
         />
     </View>
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={() =>navigation.navigate(PatientProfile)}>
+      <TouchableOpacity style={styles.button} onPress={() =>navigation.navigate('PatientProfile')}>
         <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>
     </View>
