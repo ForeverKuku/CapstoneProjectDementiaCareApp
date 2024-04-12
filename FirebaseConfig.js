@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {getAuth} from "firebase/auth";
 import {collection, getDocs, getFirestore} from "firebase/firestore";;
-import {FirebaseStorage} from 'firebase/storage';
+import {FirebaseStorage, getStorage} from 'firebase/storage';
 
 
 // Your web app's Firebase configuration
@@ -20,6 +20,7 @@ export const firebaseaApp  = initializeApp(firebaseConfig);
 export const firebaseaAuth  = getAuth(firebaseaApp);
 export const FIRESTORE_DB= getFirestore(firebaseaApp)
 export const colRef=collection(FIRESTORE_DB, 'User')
+export const storage =getStorage(firebaseaApp)
 
 
 

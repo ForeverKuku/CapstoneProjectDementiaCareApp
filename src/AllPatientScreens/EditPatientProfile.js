@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View ,Image ,Button, TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View ,Image ,Button, TouchableOpacity,Pressable} from 'react-native'
 import { FullWindowOverlay } from 'react-native-screens';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
  import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,21 +8,84 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
  import Fontisto from 'react-native-vector-icons/Fontisto';
  import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { TextInput } from 'react-native-paper';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import PatientProfile from './PatientProfile';
+
+import { launchCameraAsync, requestMediaLibraryPermissionsAsync, launchImageLibraryAsync } from 'expo-image-picker';
+import { storage } from '../../FirebaseConfig';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { useState } from 'react';
 
 
 export default function EditPatientProfile({navigation}) {
+
+  const [image, setImage] = useState('https://images.pexels.com/photos/675920/pexels-photo-675920.jpeg?cs=srgb&dl=pexels-min-an-675920.jpg&fm=jpg')
+  
+
+
+  const handleChangeProfile = async () => { 
+    try {
+      await requestMediaLibraryPermissionsAsync()
+      const result = await launchImageLibraryAsync({
+        aspect: [1, 1],
+        quality: 1,
+        allowsEditing: true,
+        allowsMultipleSelection: true
+      });
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
+        saveToStorage(result.assets[0].uri)
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  const saveToStorage =async(imgUri)=>{
+    try {
+      if(!imgUri){
+        alert("Please select an image")
+      }
+      else{
+        const timeSaved =Date.now()
+
+        const photo= await fetch(imgUri)
+        const blobbedPhoto = await photo.blob()
+
+        const path =`profilePictures/${timeSaved}`
+
+        const metaData={
+          contentType:'image/jpeg'
+        };
+
+        const imagRef=ref(storage,path)
+
+        const upload= await uploadBytes(imagRef,blobbedPhoto,metaData)
+
+        console.log(upload);
+
+
+        var hostedlink=await getDownloadURL(imagRef) 
+
+
+      }
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+
+  }
+
+     
     
   return (
     <View>
        
-      <View style={{alignItems:'center',paddingHorizontal:20,paddingTop:30}}>
-      <View>
-<Image source={require('../img/pht.jpg')} style={{width:200,height:210,borderRadius:99}} />  
+       <Pressable onPress={handleChangeProfile} style={{ alignItems: 'center', borderRadius:99, width: 200, height: 200,alignSelf:'center',marginTop:25 }}>
+
+<Image source={{uri: image}} style={{ width:'100%',height:'100%', borderRadius: 99 }} />
 <Feather name='edit' size={30} color="red" style={{backgroundColor:"black",position:'absolute', right:-5, top:130}}/>
-      </View>
-      </View>
+
+</Pressable>
       <View style={{paddingLeft:50}}>
       </View>
     <View style={{paddingLeft:50,paddingTop:20,width:350}}>

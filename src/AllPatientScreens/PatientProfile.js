@@ -10,7 +10,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { launchCameraAsync, requestMediaLibraryPermissionsAsync, launchImageLibraryAsync } from 'expo-image-picker';
-
+import { storage } from '../../FirebaseConfig';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 
 
@@ -19,7 +20,7 @@ export default function PatientProfile({ navigation }) {
   
 
 
-  const handleChangeProfile = async () => {
+  const handleChangeProfile = async () => { 
     try {
       await requestMediaLibraryPermissionsAsync()
       const result = await launchImageLibraryAsync({
@@ -29,12 +30,51 @@ export default function PatientProfile({ navigation }) {
         allowsMultipleSelection: true
       });
       if (!result.canceled) {
-        setImage(result.assets);
+        setImage(result.assets[0].uri);
+        saveToStorage(result.assets[0].uri)
       }
     } catch (error) {
       console.error(error);
     }
   }
+  
+  const saveToStorage =async(imgUri)=>{
+    try {
+      if(!imgUri){
+        alert("Please select an image")
+      }
+      else{
+        const timeSaved =Date.now()
+
+
+        const photo= await fetch(imgUri)
+        const blobbedPhoto = await photo.blob()
+
+        const path =`profilePictures/${timeSaved}`
+
+        const metaData={
+          contentType:'image/jpeg'
+        };
+
+        const imagRef=ref(storage,path)
+
+        const upload= await uploadBytes(imagRef,blobbedPhoto,metaData)
+
+        console.log(upload);
+
+
+        var hostedlink=await getDownloadURL(imagRef) 
+
+
+      }
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+
+  }
+
 
   const handleLogout = () => {
     AsyncStorage.removeItem('userToken');
