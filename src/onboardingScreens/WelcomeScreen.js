@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, Animated } from 'react
 const WelcomeScreen = ({ navigation }) => {
 
     const handleOnPressCaregiverDashboard = () => {
-        navigation.navigate('CaregiverDashboard');
+        navigation.navigate('CareGiverProfile');
       };
     
 

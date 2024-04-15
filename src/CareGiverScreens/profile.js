@@ -11,6 +11,7 @@ export default function CareGiverProfile() {
   return (
     <View>
         <View style={{alignItems:'center',paddingHorizontal:20,paddingTop:30}}>
+          <View style={{height:30}}></View>
       <Text style={{fontSize:20,fontWeight:'bold'}}>profile</Text>
       </View>
       <View style={{alignItems:'center',paddingHorizontal:20,paddingTop:30}}>
@@ -42,13 +43,6 @@ export default function CareGiverProfile() {
     </View>
 
 
-
-    <View style={{paddingTop:170,display:'flex',flexDirection:'row',paddingHorizontal:20,gap:80}}>
-    <Entypo name="home" size={30} color="#000" />
-    <Ionicons name="book-outline" size={30} color="#000"/>
-    <Ionicons name="game-controller-outline" size={30} color="#000"/>
-    <MaterialIcons name="contact-page" size={30} color="#000"/>
-    </View>
     </View>
   )
 }
@@ -63,7 +57,7 @@ const styles = StyleSheet.create({
     paddingTop:30
   },
   button: {
-    backgroundColor: '#ffccff',
+    backgroundColor: '#d8bfd8',
     padding: 10,
     borderRadius: 5,
     width:180,

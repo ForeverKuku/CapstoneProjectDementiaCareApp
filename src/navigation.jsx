@@ -6,10 +6,9 @@ import GetStarted from './onboardingScreens/GetStarted';
 import { SignIn } from './RegistrationScreens/SignIn';
 import { CreateAccount } from './RegistrationScreens/CreateAccount';
 import WelcomeScreen from './onboardingScreens/WelcomeScreen';
-import PatientDashboard from './PatientScreens/PatientDashboard';
-import EmergencyCall from './PatientScreens/EmergencyCall';
+import PatientDashboard from './AllPatientScreens/PatientDashboard';
+import EmergencyCall from './AllPatientScreens/EmergencyCall';
 import PatientProfile from './PatientScreens/PatientProfile';
-
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CountryPickerTextInput from './onboardingScreens/phone';
@@ -17,6 +16,9 @@ import VerificationCodeInput from './onboardingScreens/verification';
 import CareGiverProfile from './CareGiverScreens/profile';
 import RwandaMap from './CareGiverScreens/map';
 import Call from './CareGiverScreens/call';
+import MyCalendar from './CareGiverScreens/carecalender';
+
+
 
 
 const Stack = createNativeStackNavigator();
@@ -24,13 +26,12 @@ const Stack = createNativeStackNavigator();
 export const MainNavigation = () => {
   return(
 
-  <Stack.Navigator initialRouteName="PatientProfile">
+  <Stack.Navigator initialRouteName="RwandaMap">
     <Stack.Screen name="SplashScreen" component={SplashScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="GetStarted" component={GetStarted}  options={{headerShown: false}}/>
      <Stack.Screen name="SignIn" component={SignIn}  options={{headerShown: false}}/>
      <Stack.Screen name="CreateAccount" component={CreateAccount}  options={{headerShown: false}}/>
      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  options={{headerShown: false}}/>
-     <Stack.Screen name="CaregiverDashboard" component={CaregiverDashboard}  options={{headerShown: false}}/>
      <Stack.Screen name="EmergencyCall" component={TabNavigator}  options={{headerShown: false}}/>   
     <Stack.Screen name="PatientProfile" component={TabNavigator}  options={{headerShown: false}}/> 
     <Tab.Screen name="PatientDashboard" component={TabNavigator}  options={{tabBarShowLabel:false}} /> 
@@ -39,6 +40,7 @@ export const MainNavigation = () => {
     <Stack.Screen name="CareGiverProfile" component={BottomNavigator}  options={{headerShown: false}}/> 
     <Stack.Screen name="RwandaMap" component={BottomNavigator}  options={{headerShown: false}}/> 
     <Stack.Screen name="Call" component={BottomNavigator}  options={{headerShown: false}}/> 
+    <Stack.Screen name="MyCalendar" component={BottomNavigator}  options={{headerShown: false}}/> 
      </Stack.Navigator>
  )
 }
@@ -91,9 +93,9 @@ function TabNavigator() {
   
             if (route.name === 'RwandaMap') {
               iconName = 'home';
-            } else if (route.name === 'RwandaMap') {
+            } else if (route.name === 'MyCalendar') {
               iconName = 'calendar'
-            } else if (route.name === 'RwandaMap') {
+            } else if (route.name === 'Call') {
               iconName = 'phone-call';
             }  else if (route.name === 'CareGiverProfile') {
               iconName = 'user'
@@ -103,7 +105,7 @@ function TabNavigator() {
           },
           tabBarActiveTintColor: 'black',
           tabBarActiveBackgroundColor: '',
-          tabBarInactiveTintColor: '#0F62FE',
+          tabBarInactiveTintColor: '#ffccff',
           tabBarShowLabel: false,
           tabBarStyle: {
            
@@ -112,8 +114,8 @@ function TabNavigator() {
         })}
     >
       <Tab.Screen name="RwandaMap" component={RwandaMap}  options={{tabBarShowLabel:false}}/>
-      <Tab.Screen name="" component={RwandaMap}  options={{tabBarShowLabel:false}} /> 
-      <Tab.Screen name="" component={Call}  options={{tabBarShowLabel:false}} />
+      <Tab.Screen name="MyCalendar" component={MyCalendar}  options={{tabBarShowLabel:false}} /> 
+      <Tab.Screen name="Call" component={Call}  options={{tabBarShowLabel:false}} />
       <Tab.Screen name="CareGiverProfile" component={CareGiverProfile}  options={{tabBarShowLabel:false}} />
     </Tab.Navigator>
     );

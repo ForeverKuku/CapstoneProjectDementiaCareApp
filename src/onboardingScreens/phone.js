@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, FlatList, StyleSheet, Dimensions, Button, SafeAreaView, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
+import SharedStateContext from '../SharedStateProvider';
 
     
 const width = Dimensions.get('screen').width
@@ -10,6 +11,8 @@ const CountryPickerTextInput = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
+    const { sharedState, setSharedState } = useContext(SharedStateContext);
+    const [validNumber, setValidNumber] = useState(false)
     // const [verificationId, setVerificationId] = useState('');
     // const [verificationCode, setVerificationCode] = useState('');
 
@@ -84,9 +87,32 @@ const CountryPickerTextInput = ({navigation}) => {
             Alert.alert('Error', 'Please enter a valid phone number.');
             console.log('unsucessfully')
         }
-        navigation.navigate(' VerificationCodeInput') 
+        setValidNumber(true);
+        navigation.navigate(' VerificationCodeInput')
     };
-
+    useEffect(() =>{
+        if(validNumber){
+            fetch('http://192.168.1.69:3000/send-sms', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers here if needed
+            },
+            body: JSON.stringify({"to": phoneNumber.split('+')[1]}), // Convert data to JSON string
+            })
+            .then(response => response.json()) // Parse response as JSON
+            .then(data => {
+                if(data?.data){
+                    const number = data.data.toString().split("").map(Number)
+                    setSharedState(number)
+                }
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('Error:', error);
+            });
+        }
+    },[validNumber])
 
     return (
         <SafeAreaView>
@@ -141,7 +167,7 @@ const CountryPickerTextInput = ({navigation}) => {
                 <View style={{ height: 80 }}></View>
                 <View style={styles.buttomtext}>
                     <TouchableOpacity onPress={validatePhoneNumber} disabled={!selectedCountry || !phoneNumber}>
-                        <Text style={{ color: 'white', textAlign: 'center', fontSize: 20 }}>Next</Text>
+                        <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Next</Text>
                     </TouchableOpacity>
                 </View>
             </View> 
@@ -153,7 +179,7 @@ const styles = StyleSheet.create({
     buttomtext: {
         borderRadius: 20,
         textAlign: 'center',
-        backgroundColor: '#40A2E3',
+        backgroundColor: '#d8bfd8',
         height: 55,
         marginHorizontal: 50,
         paddingTop: 16,

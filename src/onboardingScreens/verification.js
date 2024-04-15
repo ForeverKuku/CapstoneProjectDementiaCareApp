@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import { View, TextInput, Button, StyleSheet, SafeAreaView,Text, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-const VerificationCodeInput = ({navigation}) => {
+import SharedStateContext from '../SharedStateProvider';
+const VerificationCodeInput = ({navigation, route}) => {
   const [code, setCode] = useState(['', '', '', '']);
   const inputRefs = useRef([]);
-
+  const { sharedState, setSharedState } = useContext(SharedStateContext);
   const navigate=useNavigation
 
   const handleChangeText = (text, index) => {
@@ -31,7 +32,10 @@ const VerificationCodeInput = ({navigation}) => {
     }
     navigation.navigate('CreateAccount')
   };
-
+  useEffect(() =>{
+    // setCode(sharedState)
+  },[sharedState]);
+  console.log("Shared state", sharedState)
   return (
     <SafeAreaView>
     <View style={{marginTop:50}}>
@@ -40,32 +44,34 @@ const VerificationCodeInput = ({navigation}) => {
         <View style={{height:30}}></View>
         <Text style={{textAlign:'center',fontSize:20}}>We send you an </Text>
         <Text style={{textAlign:'center',fontSize:20}}>SMS code </Text>
+        <Text style={{textAlign:'center',fontSize:20}}>{sharedState}</Text>
         <View style={{height:65}}></View>
       <View style={styles.codeContainer}>
-        {[0, 1, 2, 3].map((index) => (
+        {sharedState.map((item, index) => (
           <TextInput
             key={index}
-            ref={(ref) => (inputRefs.current[index] = ref)}
+            // ref={(ref) => (inputRefs.current[index] = ref)}
             style={styles.input}
-            keyboardType="numeric"
+            // keyboardType="numeric"
             maxLength={1}
-            onChangeText={(text) => handleChangeText(text, index)}
-            value={code[index]}
-            autoFocus={index === 0}
+            // onChangeText={(text) => handleChangeText(text, index)}
+            // value={item}
+            defaultValue={item}
+            // autoFocus={index === 0}
           />
         ))}
       </View>
       <View style={{height:100}}></View>
       <View style={styles.buttonclick}>
         <TouchableOpacity onPress={handleVerify}>
-      <Text style={{textAlign:'center',fontSize:22,color:'white'}}>Next</Text>
+      <Text style={{textAlign:'center',fontSize:22,color:'black'}}>Next</Text>
       </TouchableOpacity>
       </View>
       <View style={{height:55}}></View>
       <Text style={{textAlign:'center'}}>Didn't receive code</Text>
       <View style={styles.textnow}>
       <TouchableOpacity>
-      <Text style={{textAlign:'center',fontSize:18,color:'white'}}>Resend code</Text>
+      <Text style={{textAlign:'center',fontSize:18,color:'black'}}>Resend code</Text>
       </TouchableOpacity>
       </View>
     </View>
@@ -75,13 +81,13 @@ const VerificationCodeInput = ({navigation}) => {
 
 const styles = StyleSheet.create({
     textnow:{
-        backgroundColor: '#40A2E3',
+        backgroundColor: '#d8bfd8',
         marginHorizontal:120,
         height:60,
         paddingTop:15,borderRadius:14,
     },
     buttonclick:{
-      backgroundColor: '#40A2E3',
+      backgroundColor: '#d8bfd8',
       marginHorizontal:60,
       height:60,
       paddingTop:15,borderRadius:14,

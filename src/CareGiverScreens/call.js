@@ -19,6 +19,7 @@ const Call = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent} scrollEnabled={false}>
       <View style={styles.container}>
+        <View style={{height:40}}></View>
         <Text style={styles.header}>Emergency Contacts</Text>
         {contacts.map((contact, index) => (
           <TouchableOpacity
