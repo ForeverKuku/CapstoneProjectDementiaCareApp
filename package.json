@@ -21,6 +21,7 @@
     "cocoapods": "^0.0.0",
     "expo": "^50.0.15",
     "expo-image-picker": "^14.7.1",
+    "expo-secure-store": "^12.8.1",
     "expo-status-bar": "~1.11.1",
     "feather-icons": "^4.29.1",
     "firebase": "^10.10.0",

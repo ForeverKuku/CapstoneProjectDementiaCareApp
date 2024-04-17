@@ -9,6 +9,7 @@ import { sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/aut
 import { showMessage } from 'react-native-flash-message';
 import { CommonActions } from '@react-navigation/native';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { setItemAsync } from 'expo-secure-store';
 
 export const SignIn = ({ route, navigation }) => {
    
@@ -65,7 +66,7 @@ const firestore = getFirestore();
                 const response = await signInWithEmailAndPassword(auth, email, password);
                 console.log(response);
                 console.log('You are now signed in');
-
+                setItemAsync("userEmail",email)
                 navigation.dispatch(
                     CommonActions.reset({
                         index: 0,

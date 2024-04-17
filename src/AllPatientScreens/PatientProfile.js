@@ -14,11 +14,19 @@ import { storage } from '../../FirebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../FirebaseConfig';
+import { deleteItemAsync, getItemAsync } from 'expo-secure-store';
 
 
 
 export default function PatientProfile({ navigation }) {
   const [Profile, setProfile] = useState([]);
+  const [email,setEmail] = useState('')
+
+  getItemAsync('userEmail').then((data)=>
+  setEmail(data)
+  ).catch((er)=>{
+    console.log(er)
+  })
 
   const fetch = async () => {
     try {
@@ -99,6 +107,7 @@ export default function PatientProfile({ navigation }) {
   const handleLogout = () => {
     AsyncStorage.removeItem('userToken');
     navigation.replace('SignIn');
+    deleteItemAsync('userEmail')
   }
 
 
@@ -146,8 +155,7 @@ export default function PatientProfile({ navigation }) {
 
       </Pressable>
       <View style={{ paddingHorizontal: 20, alignItems: 'center', paddingTop: 20 }}>
-        <Text  style={[styles.profileText, isDarkMode && styles.darkText]}>Mary Brown</Text>
-        <Text style={[styles.profileText, isDarkMode && styles.darkText]}>Patient</Text>
+        <Text style={[styles.profileText, isDarkMode && styles.darkText]}>{email}</Text>
       </View>
       <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
         <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
@@ -156,12 +164,12 @@ export default function PatientProfile({ navigation }) {
       </View>
 
       <View style={{ paddingHorizontal: 20, paddingTop: 10, display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 40 }}>
-        <MaterialIcons name="contact-page" size={30} color="#000" style={{ paddingStart: 100, }} />
-        <Text  style={[styles.profileText, isDarkMode && styles.darkText]}>Female</Text>
+        <AntDesign name="calendar" size={30} color="#000" style={{ paddingStart: 100, }} />
+        <Text  style={[styles.profileText, isDarkMode && styles.darkText]}>June 16 1960</Text>
       </View>
       <View style={{ paddingHorizontal: 20, paddingTop: 10, display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 30 }}>
-        <AntDesign name="calendar" size={30} color="#000" style={{ paddingStart: 100, }} />
-        <Text style={[styles.profileText, isDarkMode && styles.darkText]}>June 16 1960</Text>
+        <MaterialIcons name="contact-page" size={30} color="#000" style={{ paddingStart: 100, }} />
+        <Text style={[styles.profileText, isDarkMode && styles.darkText]}>Female</Text>
       </View>
       <View style={{ paddingHorizontal: 20, paddingTop: 10, display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 30 ,  justifyContent: 'center',}}>
 
