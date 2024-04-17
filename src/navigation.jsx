@@ -18,7 +18,6 @@ import MedicationManagementScreen from './PatientScreens/MedicationManagemet';
 import PatientLocation from './PatientScreens/PatientLocation';
 import NotificationScreen from './PatientScreens/NotificationScreen';
 import EmergencyCall from './PatientScreens/EmergencyCall';
-import PatientProfile from './PatientScreens/PatientProfile';
 import CaregiverCalendar from './CareGiverScreens/CaregiverCalendar';
 import CaregiverEmergency from './CareGiverScreens/CaregiverEmergency';
 import BrainTeaserScreen from './PatientScreens/MindGames/BrainTeaserScreen ';
@@ -50,7 +49,6 @@ export const MainNavigation = () => {
      <Stack.Screen name="NotificationScreen" component={NotificationScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="PatientDashboard" component={PatientDashboard}  options={{headerShown: false}}/>
      <Stack.Screen name="EmergencyCall" component={EmergencyCall}  options={{headerShown: false}}/>
-     <Stack.Screen name="PatientProfile" component={PatientProfile}  options={{headerShown: false}}/>
      <Stack.Screen name="CaregiverCalendar" component={CaregiverCalendar}  options={{headerShown: false}}/>
      <Stack.Screen name="CaregiverEmergency" component={CaregiverEmergency}  options={{headerShown: false}}/>
      <Stack.Screen name="PatientLocation" component={PatientLocation}  options={{headerShown: false}}/>
