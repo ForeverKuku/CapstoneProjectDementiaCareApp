@@ -42,7 +42,7 @@ export default function EditPatientProfile({ navigation }) {
         Date: date,
         Gender: gender
       });
-      // console.log(response)
+      console.log(response)
     } catch (error) {
       console.error(error);
     }
