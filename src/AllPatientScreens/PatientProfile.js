@@ -102,9 +102,42 @@ export default function PatientProfile({ navigation }) {
   }
 
 
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+   // Load the user's preferred theme from AsyncStorage on component mount
+   useEffect(() => {
+    loadTheme();
+  }, []);
+
+  // Function to toggle between light and dark mode
+  const toggleDarkMode = async () => {
+    setIsDarkMode((prevMode) => !prevMode); // Toggle the state
+    saveTheme(!isDarkMode); // Save the updated theme preference to AsyncStorage
+  };
+
+  // Function to save the theme preference to AsyncStorage
+  const saveTheme = async (isDark) => {
+    try {
+      await AsyncStorage.setItem('isDarkMode', JSON.stringify(isDark));
+    } catch (error) {
+      console.error('Error saving theme preference:', error);
+    }
+  };
+
+  // Function to load the theme preference from AsyncStorage
+  const loadTheme = async () => {
+    try {
+      const themePreference = await AsyncStorage.getItem('isDarkMode');
+      setIsDarkMode(themePreference === 'true');
+    } catch (error) {
+      console.error('Error loading theme preference:', error);
+    }
+  };
+
+
   return (
 
-    <View>
+    <View style={[styles.containers, isDarkMode ? styles.darkContainer : null]}>
 
       <Pressable onPress={handleChangeProfile} style={{ alignItems: 'center', borderRadius: 99, width: 200, height: 200, alignSelf: 'center', marginTop: 25 }}>
 
@@ -113,8 +146,8 @@ export default function PatientProfile({ navigation }) {
 
       </Pressable>
       <View style={{ paddingHorizontal: 20, alignItems: 'center', paddingTop: 20 }}>
-        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Mary Brown</Text>
-        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Patient</Text>
+        <Text  style={[styles.profileText, isDarkMode && styles.darkText]}>Mary Brown</Text>
+        <Text style={[styles.profileText, isDarkMode && styles.darkText]}>Patient</Text>
       </View>
       <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
         <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
@@ -124,16 +157,19 @@ export default function PatientProfile({ navigation }) {
 
       <View style={{ paddingHorizontal: 20, paddingTop: 10, display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 40 }}>
         <MaterialIcons name="contact-page" size={30} color="#000" style={{ paddingStart: 100, }} />
-        <Text style={{ fontSize: 18 }}>Female</Text>
+        <Text  style={[styles.profileText, isDarkMode && styles.darkText]}>Female</Text>
       </View>
       <View style={{ paddingHorizontal: 20, paddingTop: 10, display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 30 }}>
         <AntDesign name="calendar" size={30} color="#000" style={{ paddingStart: 100, }} />
-        <Text style={{ fontSize: 18 }}>June 16 1960</Text>
+        <Text style={[styles.profileText, isDarkMode && styles.darkText]}>June 16 1960</Text>
       </View>
-      <View style={{ paddingHorizontal: 20, paddingTop: 10, display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 30 }}>
-        <Fontisto name="toggle-off" size={30} color="#000" style={{ paddingStart: 100, }} />
-        <Text style={{ fontSize: 18 }}>Dark Mode</Text>
+      <View style={{ paddingHorizontal: 20, paddingTop: 10, display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 30 ,  justifyContent: 'center',}}>
+
+        <TouchableOpacity style={styles.toggleButton} onPress={toggleDarkMode}>
+        <Text style={styles.toggleButtonText}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</Text>
+      </TouchableOpacity>
       </View>
+    
 
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={handleLogout} >
@@ -153,6 +189,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 40,
   },
+
+  containers: {
+    flex: 1,
+    
+    backgroundColor: '#FFFFFF', // Light mode background color
+  },
+  darkContainer: {
+    backgroundColor: '#000000', // Dark mode background color
+  },
+
   button: {
     backgroundColor: '#d8bfd8',
     padding: 10,
@@ -165,8 +211,29 @@ const styles = StyleSheet.create({
   buttonText: {
     height: 30,
     textAlign: 'center',
-
-
     fontSize: 16,
   },
+  toggleButton: {
+    
+    padding: 10,
+    borderRadius: 5,
+  },
+  toggleButtonText: {
+    
+    fontSize: 16,
+    fontWeight:'bold',
+    fontSize: 20
+   
+  },
+  darkText: {
+    fontSize: 18,
+    color: '#FFFFFF', // Dark mode text color
+  },
+
+   profileText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000000', // Light mode text color
+  },
+
 });
