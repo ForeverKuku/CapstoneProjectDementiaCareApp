@@ -1,8 +1,7 @@
 import React,  { useState, useEffect } from 'react';
 import { View, Text, StyleSheet,  TouchableOpacity, Image, ScrollView, Button, SafeAreaView } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import Feather from 'react-native-vector-icons/Feather'; 
-import Fontisto from 'react-native-vector-icons/Fontisto';
+import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 
 const MindGameCard = ({ game, onPress }) => {
@@ -15,12 +14,21 @@ const MindGameCard = ({ game, onPress }) => {
 };
 
 const PatientDashboard = ({navigation}) => {
+
+ 
+  const [activeTab, setActiveTab] = useState('PatientDashboard');
+
+  const handleNavigation = (tab) => {
+    setActiveTab(tab);
+    navigation.navigate(tab);
+  };
+
+
   
   const mindGamesData = [
     { id: '1', name: 'Sudoku', image: require('../img/sudoku.png') },
-    { id: '2', name: 'Crossword Puzzle', image: require('../img/puzzle.png') },
+    { id: '2', name: 'BrainTeaserScreen ', image: require('../img/puzzle.png') },
     { id: '3', name: 'Memory Game', image: require('../img/mindgame.jpg') },
-    // Add more games as needed
   ];
 
   const memoriesData = [
@@ -31,7 +39,10 @@ const PatientDashboard = ({navigation}) => {
     { id: '5', name: 'Hannah Graduation', image: require('../img/grad.jpg') },
     { id: '6', name: 'James & Nana 6', image: require('../img/son.jpg') },
     { id: '7', name: 'James', image: require('../img/man2.jpg') },
-    // Add more memories as needed
+    { id: '8', name: 'Nana Attended Bible Study', image: require('../img/nanabiblestudy.jpg') },
+    { id: '9', name: 'Nana take Selfie', image: require('../img/nanaselfie.jpg') },
+    { id: '10', name: 'Nana make  Cinnamon  bread', image: require('../img/nanabread.jpg') },
+    { id: '11', name: 'Nana Thesis defense day', image: require('../img/nanathesisday.jpg') },
   ];
 
   const medicationsData = [
@@ -64,175 +75,224 @@ const PatientDashboard = ({navigation}) => {
     navigation.navigate('MedicationManagementScreen');
   };
 
+  
+  const handleGalleryPress = () => {
+    navigation.navigate('GalleryScreen');
+  };
+
 
   return (
-    <SafeAreaView style={styles.container}>
-    <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={styles.calendarTitle}>Reminder</Text>
-        <View style={styles.calendarContainer}>
-          <Calendar
-            onDayPress={(day) => {
-              console.log('Selected day:', day);
-              onDayPress(); 
-            }}
-            markedDates={{
-              // Mark specific dates as needed (e.g., appointments)
-              '2024-04-10': { marked: true, dotColor: 'red' },
-              '2024-04-15': { marked: true, dotColor: 'green' },
-            }}
-            theme={{
-              backgroundColor: '#f9f9f9',
-              calendarBackground: '#ffffff',
-              textSectionTitleColor: '#333333',
-              textSectionTitleDisabledColor: '#d9e1e8',
-              selectedDayBackgroundColor: '#0064D5',
-              selectedDayTextColor: '#ffffff',
-              todayTextColor: '#0064D5',
-              dayTextColor: '#333333',
-            }}
-          />
-        </View>
-        <Text style={styles.subTitle}>Health & Wellness Hub</Text>
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.greetingText}>Hi Alice 👋</Text>
+        <Text style={styles.greetingSubText}>Welcome To Your Dashboard</Text>
+      </View>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    
+        <Text style={styles.calendarTitle}>Your Calendar</Text>
+          <View style={styles.calendarCard}>
+            <Calendar
+             style={styles.calendar}
+              onDayPress={(day) => {
+                console.log('Selected day:', day);
+                onDayPress(); 
+              }}
+              markedDates={{
+                // Mark specific dates as needed (e.g., appointments)
+                '2024-04-10': { marked: true, dotColor: 'red' },
+                '2024-04-15': { marked: true, dotColor: 'green' },
+              }}
+      
+              theme={{
+                backgroundColor: '#f9f9f9',
+                calendarBackground: '#ffffff',
+                textSectionTitleColor: '#333333',
+                textSectionTitleDisabledColor: '#d9e1e8',
+                selectedDayBackgroundColor: '#0064D5',
+                selectedDayTextColor: '#ffffff',
+                todayTextColor: '#0064D5',
+                dayTextColor: '#333333',
+              }}
+            />
+          </View>
+
+          {/* Mind Games */}
+          <Text style={styles.subTitle}>Mind Stimulating Games</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-  {mindGamesData.map(game => (
-    <MindGameCard
+            {mindGamesData.map(game => (
+        <MindGameCard
       key={game.id}
       game={game}
       onPress={() => handleMindGamesPress(game.name)}
     />
-  ))}
-
-<View style={styles.medications}>
-        <Text style={styles.subTitle}>Medication Management</Text>
-          {medicationsData.map((medication) => (
-            <Text key={medication.name}>
-              {medication.name} – {medication.dosage}
-            </Text>
-          ))}
-           <TouchableOpacity onPress={handleMedicationPress}>
-          <Text>Go to Medications Management</Text>
-        </TouchableOpacity>
-        </View>
-</ScrollView>
-      <View>
-      <Text style={styles.sectionTitle}>Your Memories</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-    {memoriesData.map((memory) => (
-      <TouchableOpacity key={memory.id} style={styles.cardContainer} onPress={() => navigate('Memory', { memory })}>
-        <Image source={memory.image} style={styles.gameImage} />
-        <Text style={styles.gameName}>{memory.name}</Text>
-      </TouchableOpacity>
     ))}
   </ScrollView>
-      </View>
-</ScrollView>
-</SafeAreaView>
-    );
-    }
-    
+          
+          {/* Medication Management */}
+          <Text style={styles.subTitle}>Medication Management</Text>
+          <View style={styles.medicationsCard}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {medicationsData.map((medication) => (
+                <Text key={medication.name} style={styles.cardContent}>
+                  {medication.name} – {medication.dosage}
+                </Text>
+              ))}
+            </ScrollView>
+            <TouchableOpacity style={styles.cardButton} onPress={handleMedicationPress}>
+              <Text style={styles.buttonText}>Manage Medications</Text>
+            </TouchableOpacity>
+          </View>
 
- const styles = StyleSheet.create({
+           {/* Gallery Section */}
+           <Text style={styles.sectionTitle}>Your Gallery</Text>
+           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {memoriesData.map((memory) => (
+              <TouchableOpacity key={memory.id} style={styles.cardContainer} onPress={handleGalleryPress}>
+                <Image source={memory.image} style={styles.gameImage} />
+                <Text style={styles.gameName}>{memory.name}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView> 
+        </ScrollView>
+      </SafeAreaView>
+      
+      {/* Navigation Bar */}
+      <View style={styles.bottomContainer}>
+        <TouchableOpacity onPress={() => handleNavigation('PatientDashboard')}>
+          <Icon name="home" size={30} color={activeTab === 'PatientDashboard' ? '#000' : '#fff'} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('EmergencyCall')}>
+          <Icon name="call" size={30} color={activeTab === 'EmergencyCall' ? '#000' : '#fff'} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('PatientLocation')}>
+          <Icon name="location-on" size={30} color={activeTab === 'PatientLocation' ? '#000' : '#fff'} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('Profile')}>
+          <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    flexDirection: 'column', 
   },
-  scrollView: {
-    flexGrow: 1,
-  },
-  greetingContainer: {
-    padding: 16,
-    backgroundColor: '#26282C',
-    borderBottomWidth: 1,
-    borderBottomColor: '#333333',
+  headerContainer: {
+    backgroundColor: '#d8bfd8',
+    paddingVertical: 24,
+    paddingHorizontal: 16,
+    alignItems: 'center',  
+    justifyContent: 'center', 
   },
   greetingText: {
-    color: 'white',
     fontSize: 20,
-  },
-  iconsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 16,
-  },
-  icon: {
-    color: '#333333',
-  },
-  calendarContainer: {
-    padding: 8, 
-    backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#CCCCCC',
-    marginBottom: 10,
-  },
-  calendarTitle: {
-    fontSize: 18,
     fontWeight: 'bold',
-    color: '#333333',
+    color: '#333',
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    marginTop:20,
-    color: '#666666',
+  greetingSubText: {
+    fontSize: 16,
+    color: '#333',
+    marginTop: 4,
+    alignItems:'left'
   },
-  sectionTitles:{
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    marginTop:20,
-    color: '#666666',
+  medicationsCard: {
+    flex: 2,
+    marginTop: 20,
+    marginHorizontal: 20,
+    padding: 10,
+    backgroundColor: '#FFF',
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 5,
+    minHeight: 100,
+    maxHeight: 140,
+  },
+  calendarCard: {
+    marginTop: 20,
+    marginHorizontal: 20,
+    padding: 10,
+    backgroundColor: '#FFF',
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 5,
+    minHeight: 140,
+    maxHeight: 400,
+  },
+  calendar: {
+    width: '100%', 
   },
   subTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#666666',
+    marginTop:20,
   },
-
+  cardContent: {
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  cardButton: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#800080',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+  },
+  calendarTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+   // paddingHorizontal: 16,
+    marginTop:20,
+  },
   cardContainer: {
-    marginRight: 10, 
+    width: 100,
+    height: 120,
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
+    marginBottom:10,
   },
   gameImage: {
-    width: 100, 
-    height: 100, 
+    width: 100,
+    height: 100,
     borderRadius: 8,
   },
   gameName: {
-    marginTop: 8, 
-    fontSize: 14, 
+    fontSize: 14,
+    color: '#333',
+    textAlign: 'center',
   },
-  routines: {
-    padding: 16,
-    backgroundColor: '#FFFFFF',
-    borderRightWidth: 1,
-    borderRightColor: '#CCCCCC',
-    paddingRight: 32,
-    marginRight: 16,
-  },
-  medications: {
-    padding: 16,
-    backgroundColor: '#FFFFFF',
-    paddingLeft: 32,
-    marginLeft: 16,
-  },
-  sectionContainer: {
-    padding: 16,
-  },
-  location: {
-    backgroundColor: '#e0e0e0',
-    padding: 16,
-    borderRadius: 4,
-    marginBottom: 16,
-  },
-  voice: {
-    backgroundColor: '#d3d3d3',
-    padding: 16,
-    borderRadius: 4,
-  },
-   buttonContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  bottomContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: '#d8bfd8',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
   },
 });
 

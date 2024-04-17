@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity,StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
@@ -6,12 +6,16 @@ import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 
 
-export default function CalendarScreen({ navigation }) {
-  const [activeTab, setActiveTab] = useState('CalendarScreen');
+export default function CaregiverCalendar({ navigation }) {
+
+  const [activeTab, setActiveTab] = useState('CaregiverCalendar');
+
   const handleNavigation = (tab) => {
     setActiveTab(tab);
     navigation.navigate(tab);
   };
+
+
 
   const [markedDates, setMarkedDates] = useState({});
 
@@ -28,8 +32,8 @@ export default function CalendarScreen({ navigation }) {
       newMarkedDates[date] = { marked: true, dotColor: 'red' };
     });
     setMarkedDates(newMarkedDates);
-  }, [reminders]); 
-// Update marked dates when reminders change
+  }, [reminders]); // Update marked dates when reminders change
+
 
   const handleDayPress = (day) => {
     // Navigate to the ReminderScreen with the selected date
@@ -56,20 +60,23 @@ export default function CalendarScreen({ navigation }) {
         onDayPress={handleDayPress}
         markedDates={markedDates}
       />
-      <View style={styles.bottomContainer}>
-        <TouchableOpacity onPress={() => handleNavigation('PatientDashboard')}>
-          <Icon name="home" size={30} color={activeTab === 'PatientDashboard' ? '#000' : '#fff'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('EmergencyCall')}>
-          <Icon name="call" size={30} color={activeTab === 'EmergencyCall' ? '#000' : '#fff'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('CalendarScreen')}>
-          <Icon name="event" size={30} color={activeTab === 'CalendarScreen' ? '#000' : '#fff'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('Profile')}>
-          <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
-        </TouchableOpacity>
-      </View>
+       <View style={styles.bottomContainer}>
+      <TouchableOpacity onPress={() => handleNavigation('CaregiverDashboard')}>
+        <Icon name="home" size={30} color={activeTab === 'CaregiverDashboard' ? '#000' : '#fff'} />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleNavigation('CaregiverEmergency')}>
+        <Icon name="call" size={30} color={activeTab === 'CaregiverEmergency' ? '#000' : '#fff'} />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleNavigation('CaregiverCalendar')}>
+        <Icon name="event" size={30} color={activeTab === 'CaregiverCalendar' ? '#000' : '#fff'} />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleNavigation('EducationScreen')}>
+        <Icon name="school" size={30} color={activeTab === 'EducationScreen' ? '#000' : '#fff'} />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleNavigation('Profile')}>
+        <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
+      </TouchableOpacity>
+    </View>
     </View>
   );
 }

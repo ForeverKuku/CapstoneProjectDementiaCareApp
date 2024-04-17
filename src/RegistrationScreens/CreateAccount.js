@@ -79,7 +79,8 @@ export const CreateAccount = ({ navigation }) => {
                 console.log(userCredential)
                 console.log('you are now signUp')
 
-                 // Save user data to Firestore
+                
+                // Save user data to Firestore
              await setDoc(doc(firestore, 'users', userCredential.user.uid), {
                email: userCredential.user.email,
               createdAt: new Date()

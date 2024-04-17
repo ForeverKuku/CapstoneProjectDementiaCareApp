@@ -1,44 +1,72 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 const MedicationManagementScreen = ({ navigation }) => {
+  // Sample data for medications
+  const medications = [
+    { name: 'Fabutaz Tab', time: '8:00 AM', taken: true },
+    { name: 'Thyroxin Sodium Tab', time: '8:00 AM', taken: true },
+    { name: 'Thyroxin Sodium Tab', time: '10:00 AM', taken: false },
+  ];
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Medication Schedule</Text>
-      {/* Render the weekly calendar here */}
-      {/* Morning Schedule */}
-      <View style={styles.scheduleSection}>
-        <Text style={styles.sectionTitle}>Morning Schedule</Text>
-
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Icon name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.title}>Medication Schedule</Text>
       </View>
-      {/* Evening Schedule */}
-      <View style={styles.scheduleSection}>
-        <Text style={styles.sectionTitle}>Evening Schedule</Text>
-        {/* Render evening medications here */}
-      </View>
+      {medications.map((med, index) => (
+        <TouchableOpacity
+          key={index}
+          style={styles.medicationItem}
+          onPress={() => console.log(`Selected ${med.name}`)}
+        >
+          <Text style={styles.medicationName}>{med.name}</Text>
+          <Text style={styles.medicationTime}>{med.time}</Text>
+          <Text style={styles.medicationStatus}>{med.taken ? 'Taken' : 'Not Taken'}</Text>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
+    flex: 1, // Ensures the main container takes up the full screen
+    padding: 10,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20, // Adds spacing between the header and medication list
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginLeft: 10,
   },
-  scheduleSection: {
-    marginBottom: 24,
+  medicationItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderColor: '#e0e0e0',
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 8,
+  medicationName: {
+    fontSize: 16,
   },
-  // Add styles for other components as needed
+  medicationTime: {
+    fontSize: 14,
+    color: '#888888',
+  },
+  medicationStatus: {
+    fontSize: 14,
+    color: '#009688',
+  },
 });
 
 export default MedicationManagementScreen;

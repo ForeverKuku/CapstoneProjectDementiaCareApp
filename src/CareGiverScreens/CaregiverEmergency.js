@@ -11,15 +11,15 @@ const contacts = [
   { name: 'Peterson', role: 'Psychiatrist', phone: '0783431312', image: require('../img/maledoctor.jpg') },
 ];
 
-const EmergencyCall = ({navigation}) => {
+const CaregiverEmergency = ({navigation}) => {
 
- 
-  const [activeTab, setActiveTab] = useState('EmergencyCall');
+  const [activeTab, setActiveTab] = useState('CaregiverEmergency');
 
   const handleNavigation = (tab) => {
     setActiveTab(tab);
     navigation.navigate(tab);
   };
+
 
 
   const handleCall = (phoneNumber) => {
@@ -49,14 +49,17 @@ const EmergencyCall = ({navigation}) => {
         ))}
       </View>
       <View style={styles.bottomContainer}>
-       <TouchableOpacity onPress={() => handleNavigation('PatientDashboard')}>
-          <Icon name="home" size={30} color={activeTab === 'PatientDashboard' ? '#000' : '#fff'} />
+       <TouchableOpacity onPress={() => handleNavigation('CaregiverDashboard')}>
+          <Icon name="home" size={30} color={activeTab === 'CaregiverDashboard' ? '#000' : '#fff'} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('EmergencyCall')}>
-          <Icon name="call" size={30} color={activeTab === 'EmergencyCall' ? '#000' : '#fff'} />
+        <TouchableOpacity onPress={() => handleNavigation('CaregiverEmergency')}>
+          <Icon name="call" size={30} color={activeTab === 'CaregiverEmergency' ? '#000' : '#fff'} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('PatientLocation')}>
-        <Icon name="location-on" size={30} color={activeTab === 'PatientLocation' ? '#000' : '#fff'} />
+        <TouchableOpacity onPress={() => handleNavigation('CaregiverCalendar')}>
+          <Icon name="event" size={30} color={activeTab === 'CaregiverCalendar' ? '#000' : '#fff'} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('EducationScreen')}>
+        <Icon name="school" size={30} color={activeTab === 'EducationScreen' ? '#000' : '#fff'} />
       </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigation('Profile')}>
           <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
@@ -78,7 +81,6 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 20,
     fontWeight: 'bold',
-   // marginBottom: 2,
   },
   contact: {
     marginBottom: 10,
@@ -124,4 +126,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default EmergencyCall;
+export default CaregiverEmergency;

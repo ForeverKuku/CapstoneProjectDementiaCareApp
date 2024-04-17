@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 const gamesData = [
   {
@@ -9,7 +10,7 @@ const gamesData = [
   },
   {
     id: '2',
-    title: 'Crossword Puzzle',
+    title: 'BrainTeaserScreen ',
     icon: require('../img/puzzle.png'),
   },
   {
@@ -33,7 +34,7 @@ const MindGamesScreen = ({ navigation }) => {
     if (gameId === '1') {
       navigation.navigate('SudokuScreen');
     } else if (gameId === '2') {
-      navigation.navigate('CrosswordScreen');
+      navigation.navigate('BrainTeaserScreen');
     } else if (gameId === '3') {
       navigation.navigate('MemoryGameScreen');
     }
@@ -41,10 +42,17 @@ const MindGamesScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+       <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Icon name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
       <Text style={styles.header}>Mind Stimulating Games</Text>
-      {gamesData.map((game) => (
-        <GameListItem key={game.id} game={game} onPress={handleGamePress} />
-      ))}
+      </View>
+      <View style={styles.gameListContainer}>
+        {gamesData.map((game) => (
+          <GameListItem key={game.id} game={game} onPress={handleGamePress} />
+        ))}
+      </View>
     </View>
   );
 };
@@ -55,12 +63,22 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'white',
   },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  backButton: {
+    marginRight: 10, 
+  },
   header: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 16,
     textAlign: 'center',
-    marginTop: 30,
+    flex: 1, 
+  },
+  gameListContainer: {
+    flex: 1, 
   },
   card: {
     flexDirection: 'row',
@@ -68,15 +86,21 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#f0f0f0',
     borderRadius: 8,
-    marginBottom: 16,
+    marginBottom: 10,
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3, 
   },
   gameIcon: {
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
     marginRight: 10,
+    borderRadius: 25, 
   },
   gameTitle: {
-    fontSize: 16,
+    fontSize: 18,
   },
 });
 

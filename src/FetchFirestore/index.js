@@ -2,7 +2,7 @@ import { addDoc, collection, getDocs } from "firebase/firestore"
 import { firestoreDb } from "../FirebasrConfid"
 
 export const writeData = async(email, password) => {
-    try {
+    try{
         const docRef = await addDoc(collection(firestoreDb, "user"), 
         { email: email, password: password})
     console.log(docRef); 

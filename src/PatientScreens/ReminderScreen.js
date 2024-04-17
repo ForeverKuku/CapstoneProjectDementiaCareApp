@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
-export default function ReminderScreen({ route }) {
-  const { selectedDate } = route.params;
+export default function ReminderScreen({ route, navigation }) {
+  const { selectedDate, addReminder } = route.params;
   const [reminderTitle, setReminderTitle] = useState('');
   const [savedReminder, setSavedReminder] = useState(null);
 
   const handleSaveReminder = () => {
-    // Save the reminder (e.g., to local storage or a database)
-    // Implement your logic to save the reminder
+    if (reminderTitle.trim()) {
+      // Call the addReminder function passed from CalendarScreen
+      addReminder(selectedDate, reminderTitle);
 
-    // Update the saved reminder state
-    setSavedReminder(reminderTitle);
-    setReminderTitle('');
+      // Clear the input and update the saved reminder state
+      setSavedReminder(reminderTitle);
+      setReminderTitle('');
+
+      // Optionally navigate back to the previous screen
+      navigation.goBack();
+    }
   };
 
   return (

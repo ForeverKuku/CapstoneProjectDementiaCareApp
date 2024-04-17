@@ -137,7 +137,7 @@ const firestore = getFirestore();
             resizeMode="cover"
         />
         <View style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', paddingHorizontal: 20, width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <View style={{ justifyContent: 'center', paddingTop: 100, paddingHorizontal: 20, paddingBottom: 60 }}>
+            <View style={{ justifyContent: 'center', paddingTop: 50, paddingHorizontal: 20, paddingBottom: 60 }}>
                 <Text style={{ color: 'white', fontSize: 22, textAlign: 'center' }}>DementiaCareApp</Text>
             </View>
             <View style={{ paddingHorizontal: 20, paddingBottom: 20 }}>
