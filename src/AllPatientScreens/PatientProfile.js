@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity, Pressable } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FullWindowOverlay } from 'react-native-screens'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -12,15 +12,35 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { launchCameraAsync, requestMediaLibraryPermissionsAsync, launchImageLibraryAsync } from 'expo-image-picker';
 import { storage } from '../../FirebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../FirebaseConfig';
 
 
 
 export default function PatientProfile({ navigation }) {
+  const [Profile, setProfile] = useState([]);
+
+  const fetch = async () => {
+    try {
+      const docRef = await getDocs(collection(db, "Profile"))
+      const data = []
+      const docSnapShop = docRef.forEach((doc) => data.push(doc.data()))
+      setProfile(data)
+      console.log(data)
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
+  useEffect(() => {
+    fetch()
+  }, [])
+
   const [image, setImage] = useState('https://images.pexels.com/photos/675920/pexels-photo-675920.jpeg?cs=srgb&dl=pexels-min-an-675920.jpg&fm=jpg')
-  
 
 
-  const handleChangeProfile = async () => { 
+
+  const handleChangeProfile = async () => {
     try {
       await requestMediaLibraryPermissionsAsync()
       const result = await launchImageLibraryAsync({
@@ -37,40 +57,40 @@ export default function PatientProfile({ navigation }) {
       console.error(error);
     }
   }
-  
-  const saveToStorage =async(imgUri)=>{
+
+  const saveToStorage = async (imgUri) => {
     try {
-      if(!imgUri){
+      if (!imgUri) {
         alert("Please select an image")
       }
-      else{
-        const timeSaved =Date.now()
+      else {
+        const timeSaved = Date.now()
 
 
-        const photo= await fetch(imgUri)
+        const photo = await fetch(imgUri)
         const blobbedPhoto = await photo.blob()
 
-        const path =`profilePictures/${timeSaved}`
+        const path = `profilePictures/${timeSaved}`
 
-        const metaData={
-          contentType:'image/jpeg'
+        const metaData = {
+          contentType: 'image/jpeg'
         };
 
-        const imagRef=ref(storage,path)
+        const imagRef = ref(storage, path)
 
-        const upload= await uploadBytes(imagRef,blobbedPhoto,metaData)
+        const upload = await uploadBytes(imagRef, blobbedPhoto, metaData)
 
         console.log(upload);
 
 
-        var hostedlink=await getDownloadURL(imagRef) 
+        var hostedlink = await getDownloadURL(imagRef)
 
 
       }
-      
+
     } catch (error) {
       console.log(error)
-      
+
     }
 
   }
@@ -78,17 +98,18 @@ export default function PatientProfile({ navigation }) {
 
   const handleLogout = () => {
     AsyncStorage.removeItem('userToken');
-    navigation.replace('SignIn'); 
+    navigation.replace('SignIn');
   }
 
 
   return (
+
     <View>
 
-      <Pressable onPress={handleChangeProfile} style={{ alignItems: 'center', borderRadius:99, width: 200, height: 200,alignSelf:'center',marginTop:25 }}>
+      <Pressable onPress={handleChangeProfile} style={{ alignItems: 'center', borderRadius: 99, width: 200, height: 200, alignSelf: 'center', marginTop: 25 }}>
 
-        <Image source={{uri: image}} style={{ width:'100%',height:'100%', borderRadius: 99 }} />
-<Feather name='edit' size={30} color="red" style={{backgroundColor:"black",position:'absolute', right:-5, top:130}}/>
+        <Image source={{ uri: image }} style={{ width: '100%', height: '100%', borderRadius: 99 }} />
+        <Feather name='camera' size={30} color="white" style={{ backgroundColor: "black", position: 'absolute', right: -2, top: 130 }} />
 
       </Pressable>
       <View style={{ paddingHorizontal: 20, alignItems: 'center', paddingTop: 20 }}>
@@ -119,10 +140,6 @@ export default function PatientProfile({ navigation }) {
           <Text style={styles.buttonText}>Press Me</Text>
         </TouchableOpacity>
       </View>
-
-
-
-
     </View>
   )
 }

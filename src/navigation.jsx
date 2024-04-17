@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import EditPatientProfile from './AllPatientScreens/EditPatientProfile';
 
 
+
 const Stack = createNativeStackNavigator();
 
 export const MainNavigation = () => {
@@ -27,7 +28,9 @@ export const MainNavigation = () => {
      <Stack.Screen name="CreateAccount" component={CreateAccount}  options={{headerShown: false}}/>
      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="CaregiverDashboard" component={CaregiverDashboard}  options={{headerShown: false}}/>
-    <Stack.Screen name="Edit" component={TabNavigator} options={{headerShown:false}}/> 
+    <Stack.Screen name="Edit" component={EditPatientProfile} options={{headerShown:false}}/>
+    <Stack.Screen name="PatientProfile" component={TabNavigator} options={{headerShown:false}}/> 
+
     <Tab.Screen name="PatientDashboard" component={TabNavigator}  options={{tabBarShowLabel:false}} /> 
      </Stack.Navigator>
  )
@@ -50,9 +53,7 @@ function TabNavigator() {
           }   else if (route.name === 'PatientProfile') {
             iconName = 'user';
           }
-          else if (route.name === 'Edit') {
-            iconName = 'edit';
-          }
+        
           
           return <Feather name={iconName} size={size} color={color} />;
         },
@@ -69,7 +70,6 @@ function TabNavigator() {
     <Tab.Screen name="PatientHomeScreen" component={PatientDashboard}  options={{tabBarShowLabel:false}}/>
     <Tab.Screen name="EmergencyCall" component={EmergencyCall}  options={{tabBarShowLabel:false}} />
     <Tab.Screen name="PatientProfile" component={PatientProfile}  options={{tabBarShowLabel:false}} />
-    <Tab.Screen name="Edit" component={EditPatientProfile}  options={{tabBarShowLabel:false}} />
   </Tab.Navigator>
   );
 }

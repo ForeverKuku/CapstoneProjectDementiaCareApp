@@ -4,7 +4,6 @@ import {collection, getDocs, getFirestore} from "firebase/firestore";;
 import {FirebaseStorage, getStorage} from 'firebase/storage';
 
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCBn-l79wv7IqB3l3TDufQ-f0Ef-wuka9g",
   authDomain: "dementiacareapp-93fcb.firebaseapp.com",
@@ -12,14 +11,15 @@ const firebaseConfig = {
   storageBucket: "dementiacareapp-93fcb.appspot.com",
   messagingSenderId: "166472325844",
   appId: "1:166472325844:web:1970c13fee96feaaf87941"
-};
+}
+
 
 
 // Initialize Firebase
 export const firebaseaApp  = initializeApp(firebaseConfig);
 export const firebaseaAuth  = getAuth(firebaseaApp);
-export const FIRESTORE_DB= getFirestore(firebaseaApp)
-export const colRef=collection(FIRESTORE_DB, 'User')
+export const db = getFirestore(firebaseaApp)
+export const colRef= collection(db, 'User')
 export const storage =getStorage(firebaseaApp)
 
 
