@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; 
 
@@ -12,6 +12,16 @@ const contacts = [
 ];
 
 const EmergencyCall = ({navigation}) => {
+
+ 
+  const [activeTab, setActiveTab] = useState('EmergencyCall');
+
+  const handleNavigation = (tab) => {
+    setActiveTab(tab);
+    navigation.navigate(tab);
+  };
+
+
   const handleCall = (phoneNumber) => {
     Linking.openURL(`tel:${phoneNumber}`);
   };
@@ -38,6 +48,20 @@ const EmergencyCall = ({navigation}) => {
           </TouchableOpacity>
         ))}
       </View>
+      <View style={styles.bottomContainer}>
+       <TouchableOpacity onPress={() => handleNavigation('PatientDashboard')}>
+          <Icon name="home" size={30} color={activeTab === 'PatientDashboard' ? '#000' : '#fff'} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('EmergencyCall')}>
+          <Icon name="call" size={30} color={activeTab === 'EmergencyCall' ? '#000' : '#fff'} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('PatientLocation')}>
+        <Icon name="location-on" size={30} color={activeTab === 'PatientLocation' ? '#000' : '#fff'} />
+      </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('Profile')}>
+          <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
+        </TouchableOpacity>
+    </View>
     </ScrollView>
   );
 };
@@ -54,10 +78,10 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 20,
+   // marginBottom: 2,
   },
   contact: {
-    marginBottom: 15,
+    marginBottom: 10,
     padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -66,7 +90,7 @@ const styles = StyleSheet.create({
   contactInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', // Align items horizontally
+    justifyContent: 'space-between', 
   },
   contactImageContainer: {
     marginRight: 10,
@@ -77,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   contactDetails: {
-    flex: 1, // Take up remaining space
+    flex: 1,
   },
   contactName: {
     fontSize: 18,
@@ -88,6 +112,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
   },
+  bottomContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: '#d8bfd8', 
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    padding: 10,  
+    // height: 20 
+  }
 });
 
 export default EmergencyCall;

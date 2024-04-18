@@ -6,18 +6,24 @@ import GetStarted from './onboardingScreens/GetStarted';
 import { SignIn } from './RegistrationScreens/SignIn';
 import { CreateAccount } from './RegistrationScreens/CreateAccount';
 import WelcomeScreen from './onboardingScreens/WelcomeScreen';
-import PatientDashboard from './AllPatientScreens/PatientDashboard';
-import EmergencyCall from './AllPatientScreens/EmergencyCall';
-import PatientProfile from './PatientScreens/PatientProfile';
-import Feather from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import CountryPickerTextInput from './onboardingScreens/phone';
-import VerificationCodeInput from './onboardingScreens/verification';
-import CareGiverProfile from './CareGiverScreens/profile';
-import RwandaMap from './CareGiverScreens/map';
-import Call from './CareGiverScreens/call';
-import MyCalendar from './CareGiverScreens/carecalender';
-
+import CaregiverDashboard from './CareGiverScreens/CaregiverDashboard';
+import PatientDashboard from './PatientScreens/PatientDashboard';
+import CalendarScreen from './PatientScreens/Calendar';
+import ReminderScreen from './PatientScreens/ReminderScreen';
+import SudokuScreen from './PatientScreens/MindGames/SudokuScreen';
+import CrosswordScreen from './PatientScreens/MindGames/BrainTeaserScreen ';
+import MemoryGameScreen from './PatientScreens/MindGames/MemoryGameScreen';
+import MindGamesScreen from './PatientScreens/MindGame';
+import MedicationManagementScreen from './PatientScreens/MedicationManagemet';
+import PatientLocation from './PatientScreens/PatientLocation';
+import NotificationScreen from './PatientScreens/NotificationScreen';
+import EmergencyCall from './PatientScreens/EmergencyCall';
+import CaregiverCalendar from './CareGiverScreens/CaregiverCalendar';
+import CaregiverEmergency from './CareGiverScreens/CaregiverEmergency';
+import BrainTeaserScreen from './PatientScreens/MindGames/BrainTeaserScreen ';
+import GalleryScreen from './PatientScreens/GalleryScreen';
+import EducationScreen from './CareGiverScreens/EducationScreen';
+import CaregiverNotificationScreen from './CareGiverScreens/CaregiverNotificationScreen';
 
 
 
@@ -32,92 +38,24 @@ export const MainNavigation = () => {
      <Stack.Screen name="SignIn" component={SignIn}  options={{headerShown: false}}/>
      <Stack.Screen name="CreateAccount" component={CreateAccount}  options={{headerShown: false}}/>
      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  options={{headerShown: false}}/>
-     <Stack.Screen name="EmergencyCall" component={TabNavigator}  options={{headerShown: false}}/>   
-    <Stack.Screen name="PatientProfile" component={TabNavigator}  options={{headerShown: false}}/> 
-    <Tab.Screen name="PatientDashboard" component={TabNavigator}  options={{tabBarShowLabel:false}} /> 
-    <Tab.Screen name="CountryPickerTextInput" component={CountryPickerTextInput}  options={{tabBarShowLabel:false}} /> 
-    <Tab.Screen name=" VerificationCodeInput" component={ VerificationCodeInput}  options={{tabBarShowLabel:false}} /> 
-    <Stack.Screen name="CareGiverProfile" component={BottomNavigator}  options={{headerShown: false}}/> 
-    <Stack.Screen name="RwandaMap" component={BottomNavigator}  options={{headerShown: false}}/> 
-    <Stack.Screen name="Call" component={BottomNavigator}  options={{headerShown: false}}/> 
-    <Stack.Screen name="MyCalendar" component={BottomNavigator}  options={{headerShown: false}}/> 
+     <Stack.Screen name="CalendarScreen" component={CalendarScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="ReminderScreen" component={ReminderScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="MindGameScreen" component={MindGamesScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="SudokuScreen" component={SudokuScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="BrainTeaserScreen" component={BrainTeaserScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="MemoryGameScreen" component={MemoryGameScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="MedicationManagementScreen" component={MedicationManagementScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="CaregiverDashboard" component={CaregiverDashboard}  options={{headerShown: false}}/>
+     <Stack.Screen name="NotificationScreen" component={NotificationScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="PatientDashboard" component={PatientDashboard}  options={{headerShown: false}}/>
+     <Stack.Screen name="EmergencyCall" component={EmergencyCall}  options={{headerShown: false}}/>
+     <Stack.Screen name="CaregiverCalendar" component={CaregiverCalendar}  options={{headerShown: false}}/>
+     <Stack.Screen name="CaregiverEmergency" component={CaregiverEmergency}  options={{headerShown: false}}/>
+     <Stack.Screen name="PatientLocation" component={PatientLocation}  options={{headerShown: false}}/>
+     <Stack.Screen name="GalleryScreen" component={GalleryScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="EducationScreen" component={EducationScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="CaregiverNotificationScreen" component={CaregiverNotificationScreen}  options={{headerShown: false}}/>
      </Stack.Navigator>
  )
 }
 
-
-const Tab = createBottomTabNavigator();
-
-function TabNavigator() {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          if (route.name === 'PatientHomeScreen') {
-            iconName = 'home';
-          } else if (route.name === 'EmergencyCall') {
-            iconName = 'phone-call';
-          }   else if (route.name === 'PatientProfile') {
-            iconName = 'user';
-          }
-          
-          return <Feather name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: 'black',
-        tabBarInactiveTintColor: 'rgba(242, 210, 189, 0.7)',
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: '#d8bfd8', 
-          borderTopColor: '#d8bfd8',
-        },
-       headerShown: false,
-      })}
-  >
-    <Tab.Screen name="PatientHomeScreen" component={PatientDashboard}  options={{tabBarShowLabel:false}}/>
-    <Tab.Screen name="EmergencyCall" component={EmergencyCall}  options={{tabBarShowLabel:false}} />
-    <Tab.Screen name="PatientProfile" component={PatientProfile}  options={{tabBarShowLabel:false}} /> 
-  </Tab.Navigator>
-  );
-
-    }
-
-
-  function BottomNavigator() {
-    return (
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-  
-            if (route.name === 'RwandaMap') {
-              iconName = 'home';
-            } else if (route.name === 'MyCalendar') {
-              iconName = 'calendar'
-            } else if (route.name === 'Call') {
-              iconName = 'phone-call';
-            }  else if (route.name === 'CareGiverProfile') {
-              iconName = 'user'
-            } 
-           
-            return <Feather name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'black',
-          tabBarActiveBackgroundColor: '',
-          tabBarInactiveTintColor: '#ffccff',
-          tabBarShowLabel: false,
-          tabBarStyle: {
-           
-          },
-         headerShown: false,
-        })}
-    >
-      <Tab.Screen name="RwandaMap" component={RwandaMap}  options={{tabBarShowLabel:false}}/>
-      <Tab.Screen name="MyCalendar" component={MyCalendar}  options={{tabBarShowLabel:false}} /> 
-      <Tab.Screen name="Call" component={Call}  options={{tabBarShowLabel:false}} />
-      <Tab.Screen name="CareGiverProfile" component={CareGiverProfile}  options={{tabBarShowLabel:false}} />
-    </Tab.Navigator>
-    );
-  }
-  
